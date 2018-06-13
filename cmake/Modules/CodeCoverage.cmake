@@ -41,29 +41,8 @@
 # 2017-06-02, Lars Bilke
 # - Merged with modified version from github.com/ufz/ogs
 #
-#
-# USAGE:
-#
-# 1. Copy this file into your cmake modules path.
-#
-# 2. Add the following line to your CMakeLists.txt:
-#      include(CodeCoverage)
-#
-# 3. Append necessary compiler flags:
-#      APPEND_COVERAGE_COMPILER_FLAGS()
-#
-# 4. If you need to exclude additional directories from the report, specify them
-#    using the COVERAGE_EXCLUDES variable before calling SETUP_TARGET_FOR_COVERAGE.
-#    Example:
-#      set(COVERAGE_EXCLUDES 'dir1/*' 'dir2/*')
-#
-# 5. Use the functions described below to create a custom make target which
-#    runs your test executable and produces a code coverage report.
-#
-# 6. Build a Debug build:
-#      cmake -DCMAKE_BUILD_TYPE=Debug ..
-#      make
-#      make my_coverage_target
+# 2018-06-12, Michael Ferguson
+# - Forked for ROS support
 #
 
 include(CMakeParseArguments)
@@ -162,7 +141,7 @@ function(ADD_CODE_COVERAGE)
         COMMAND ${LCOV_PATH} --directory . --capture --output-file ${Coverage_NAME}.info
         # add baseline counters
         COMMAND ${LCOV_PATH} -a ${Coverage_NAME}.base -a ${Coverage_NAME}.info --output-file ${Coverage_NAME}.total
-        COMMAND ${LCOV_PATH} --remove ${Coverage_NAME}.total ${COVERAGE_EXCLUDES} "*/${PROJECT_NAME}/test*" --output-file ${PROJECT_BINARY_DIR}/${Coverage_NAME}.info.removed
+        COMMAND ${LCOV_PATH} --remove ${Coverage_NAME}.total ${COVERAGE_EXCLUDES} --output-file ${PROJECT_BINARY_DIR}/${Coverage_NAME}.info.removed
         COMMAND ${LCOV_PATH} --extract ${PROJECT_BINARY_DIR}/${Coverage_NAME}.info.removed "*/${PROJECT_NAME}/*" --output-file ${PROJECT_BINARY_DIR}/${Coverage_NAME}.info.cleaned
         COMMAND ${GENHTML_PATH} -o ${Coverage_NAME} ${PROJECT_BINARY_DIR}/${Coverage_NAME}.info.cleaned
         COMMAND ${CMAKE_COMMAND} -E remove ${Coverage_NAME}.base ${Coverage_NAME}.total ${PROJECT_BINARY_DIR}/${Coverage_NAME}.info.cleaned

@@ -29,6 +29,7 @@ To use this with your ROS package:
       # Add your tests here
 
       if(ENABLE_COVERAGE_TESTING)
+        set(COVERAGE_EXCLUDES "*/${PROJECT_NAME}/test*" "*/${PROJECT_NAME}/other_dir_i_dont_care_about*")
         add_code_coverage(
           NAME ${PROJECT_NAME}_coverage
           DEPENDS tests

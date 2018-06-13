@@ -8,8 +8,8 @@ To use this with your ROS package:
  * Add code_coverage as a build depend in your package.xml
  * Update your CMakeLists.txt:
 ```
-	find_package(catkin
-   	  REQUIRED
+    find_package(catkin
+      REQUIRED
         code_coverage
         ...
     )
@@ -17,7 +17,7 @@ To use this with your ROS package:
         ...
     )
 
-	if(ENABLE_COVERAGE_TESTING)
+    if(ENABLE_COVERAGE_TESTING)
       include(CodeCoverage)
       APPEND_COVERAGE_COMPILER_FLAGS()
     endif()

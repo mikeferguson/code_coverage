@@ -37,8 +37,15 @@ To use this with your ROS package:
       endif()
     endif()
 ```
- * Now you can run:
+ * Now you can build and run the tests:
 ```
- 	catkin_make -DENABLE_COVERAGE_TESTING=ON package_name_coverage
+    IF USING CATKIN_MAKE:
+    catkin_make -DENABLE_COVERAGE_TESTING=ON package_name_coverage
+    
+    IF USING CATKIN_TOOLS:
+    catkin config --cmake-args -DENABLE_COVERAGE_TESTING=ON
+    catkin build
+    catkin build PACKAGE_NAME -v -no-deps --catkin-make-args PACKAGE_NAME_coverage 
 ```
+
  * The output will print where the coverage report is located

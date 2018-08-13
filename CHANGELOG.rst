@@ -2,8 +2,8 @@
 Changelog for package code_coverage
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.2.1 (2018-08-13)
+------------------
 * Merge pull request `#3 <https://github.com/mikeferguson/code_coverage/issues/3>`_ from mikeferguson/catkin_build_fix
   Add support for catkin_tools (fixes `#2 <https://github.com/mikeferguson/code_coverage/issues/2>`_)
 * add information on how to run with catkin_tools

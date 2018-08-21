@@ -2,6 +2,11 @@
 Changelog for package code_coverage
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* fix name of installspace file
+* Contributors: Michael Ferguson
+
 0.2.1 (2018-08-13)
 ------------------
 * Merge pull request `#3 <https://github.com/mikeferguson/code_coverage/issues/3>`_ from mikeferguson/catkin_build_fix

@@ -2,8 +2,8 @@
 Changelog for package code_coverage
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.2.2 (2018-08-21)
+------------------
 * fix name of installspace file
 * Contributors: Michael Ferguson
 

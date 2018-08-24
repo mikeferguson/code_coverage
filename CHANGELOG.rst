@@ -2,6 +2,14 @@
 Changelog for package code_coverage
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Merge pull request `#7 <https://github.com/mikeferguson/code_coverage/issues/7>`_ from jschleicher/fix/installed_package
+  fix search path for installed package
+* fix search path for installed package
+  Closes `#6 <https://github.com/mikeferguson/code_coverage/issues/6>`_
+* Contributors: Joachim Schleicher, Michael Ferguson
+
 0.2.2 (2018-08-21)
 ------------------
 * fix name of installspace file

@@ -45,7 +45,7 @@ To use this with your ROS package:
     IF USING CATKIN_TOOLS:
     catkin config --cmake-args -DENABLE_COVERAGE_TESTING=ON
     catkin build
-    catkin build PACKAGE_NAME -v -no-deps --catkin-make-args PACKAGE_NAME_coverage 
+    catkin build PACKAGE_NAME -v --no-deps --catkin-make-args PACKAGE_NAME_coverage 
 ```
 
  * The output will print where the coverage report is located

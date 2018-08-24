@@ -2,8 +2,8 @@
 Changelog for package code_coverage
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.2.3 (2018-08-24)
+------------------
 * Merge pull request `#7 <https://github.com/mikeferguson/code_coverage/issues/7>`_ from jschleicher/fix/installed_package
   fix search path for installed package
 * fix search path for installed package

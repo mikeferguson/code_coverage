@@ -32,11 +32,11 @@ endif()
 
   - if using CATKIN_MAKE:
   ```
-      catkin_make -DENABLE_COVERAGE_TESTING=ON -DCMAKE_BUILD_TYPE=Debug package_name_coverage
+      catkin_make -D ENABLE_COVERAGE_TESTING=ON -D CMAKE_BUILD_TYPE=Debug package_name_coverage
   ```
   - if using CATKIN_TOOLS:
   ```
-    catkin config --cmake-args -ENABLE_COVERAGE_TESTING=ON -CMAKE_BUILD_TYPE=Debug
+    catkin config --cmake-args -D ENABLE_COVERAGE_TESTING=ON -D CMAKE_BUILD_TYPE=Debug
     catkin build
     catkin build PACKAGE_NAME -v --no-deps --catkin-make-args PACKAGE_NAME_coverage 
   ```

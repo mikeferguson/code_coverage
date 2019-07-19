@@ -2,6 +2,17 @@
 Changelog for package code_coverage
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Merge pull request `#11 <https://github.com/mikeferguson/code_coverage/issues/11>`_ from agutenkunst/master
+  Keep *.info.cleaned. Closes `#10 <https://github.com/mikeferguson/code_coverage/issues/10>`_
+* Keep *.info.cleaned. Closes `#10 <https://github.com/mikeferguson/code_coverage/issues/10>`_
+* Merge pull request `#8 <https://github.com/mikeferguson/code_coverage/issues/8>`_ from jschleicher/documentation
+  documentation: degrade to test_depend
+* documentation degrade to test_depend
+  and note that build type should be set to Debug
+* Contributors: Alexander Gutenkunst, Joachim Schleicher, Michael Ferguson
+
 0.2.3 (2018-08-24)
 ------------------
 * Merge pull request `#7 <https://github.com/mikeferguson/code_coverage/issues/7>`_ from jschleicher/fix/installed_package

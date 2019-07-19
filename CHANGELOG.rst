@@ -2,8 +2,8 @@
 Changelog for package code_coverage
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.2.4 (2019-07-18)
+------------------
 * Merge pull request `#11 <https://github.com/mikeferguson/code_coverage/issues/11>`_ from agutenkunst/master
   Keep *.info.cleaned. Closes `#10 <https://github.com/mikeferguson/code_coverage/issues/10>`_
 * Keep *.info.cleaned. Closes `#10 <https://github.com/mikeferguson/code_coverage/issues/10>`_

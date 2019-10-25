@@ -22,7 +22,7 @@ if (CATKIN_ENABLE_TESTING)
     set(COVERAGE_EXCLUDES "*/${PROJECT_NAME}/test*" "*/${PROJECT_NAME}/other_dir_i_dont_care_about*")
     add_code_coverage(
       NAME ${PROJECT_NAME}_coverage
-      DEPENDS tests
+      DEPENDENCIES tests
     )
   endif()
 endif()

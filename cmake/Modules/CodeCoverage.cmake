@@ -132,7 +132,6 @@ function(ADD_CODE_COVERAGE)
         # Create baseline to make sure untouched files show up in the report
         COMMAND ${LCOV_PATH} -c -i -d . -o ${Coverage_NAME}.base
         WORKING_DIRECTORY ${PROJECT_BINARY_DIR}
-        DEPENDS ${Coverage_DEPENDENCIES}
         COMMENT "Resetting code coverage counters to zero."
     )
 
@@ -148,6 +147,7 @@ function(ADD_CODE_COVERAGE)
 
         WORKING_DIRECTORY ${PROJECT_BINARY_DIR}
         DEPENDS ${Coverage_NAME}_cleanup
+        DEPENDS ${Coverage_DEPENDENCIES}
         DEPENDS _run_tests_${PROJECT_NAME}
         COMMENT "Processing code coverage counters and generating report."
     )

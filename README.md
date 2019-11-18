@@ -8,20 +8,22 @@ To use this with your ROS package:
  * Add code_coverage as a test depend in your package.xml
  * Update your CMakeLists.txt, in the testing section add:
 ```
-if (CATKIN_ENABLE_TESTING)
+if(CATKIN_ENABLE_TESTING AND ENABLE_COVERAGE_TESTING)
   find_package(code_coverage REQUIRED)
+  # Add compiler flags for coverage instrumentation before defining any targets
+  APPEND_COVERAGE_COMPILER_FLAGS()
+endif()
 
-  if(ENABLE_COVERAGE_TESTING)
-    include(CodeCoverage)
-    APPEND_COVERAGE_COMPILER_FLAGS()
-  endif()
+# Add your targets here
 
+if (CATKIN_ENABLE_TESTING)
   # Add your tests here
 
+  # Create a target ${PROJECT_NAME}_coverage_report
   if(ENABLE_COVERAGE_TESTING)
     set(COVERAGE_EXCLUDES "*/${PROJECT_NAME}/test*" "*/${PROJECT_NAME}/other_dir_i_dont_care_about*")
     add_code_coverage(
-      NAME ${PROJECT_NAME}_coverage
+      NAME ${PROJECT_NAME}_coverage_report
       DEPENDENCIES tests
     )
   endif()

@@ -171,3 +171,5 @@ function(APPEND_COVERAGE_COMPILER_FLAGS)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${COVERAGE_COMPILER_FLAGS}" PARENT_SCOPE)
     message(STATUS "Appending code coverage compiler flags: ${COVERAGE_COMPILER_FLAGS}")
 endfunction() # APPEND_COVERAGE_COMPILER_FLAGS
+
+option(ENABLE_COVERAGE_TESTING "Turn on coverage testing" OFF)

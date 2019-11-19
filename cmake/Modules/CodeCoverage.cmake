@@ -1,5 +1,6 @@
 # Copyright (c) 2012 - 2017, Lars Bilke
 # All rights reserved.
+# From: https://github.com/bilke/cmake-modules/blob/master/CodeCoverage.cmake
 #
 # Redistribution and use in source and binary forms, with or without modification,
 # are permitted provided that the following conditions are met:
@@ -171,3 +172,5 @@ function(APPEND_COVERAGE_COMPILER_FLAGS)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${COVERAGE_COMPILER_FLAGS}" PARENT_SCOPE)
     message(STATUS "Appending code coverage compiler flags: ${COVERAGE_COMPILER_FLAGS}")
 endfunction() # APPEND_COVERAGE_COMPILER_FLAGS
+
+option(ENABLE_COVERAGE_TESTING "Turn on coverage testing" OFF)

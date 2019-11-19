@@ -2,8 +2,8 @@
 Changelog for package code_coverage
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.3.0 (2019-11-18)
+------------------
 * update target name in readme
 * Merge pull request `#15 <https://github.com/mikeferguson/code_coverage/issues/15>`_ from rhaschke/master
   Simplify + clarify usage

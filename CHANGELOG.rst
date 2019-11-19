@@ -2,6 +2,20 @@
 Changelog for package code_coverage
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* update target name in readme
+* Merge pull request `#15 <https://github.com/mikeferguson/code_coverage/issues/15>`_ from rhaschke/master
+  Simplify + clarify usage
+* add link to original source
+* simplify usage
+  - automatically include(CodeCoverage)
+  - clarify that APPEND_COVERAGE_COMPILER_FLAGS() needs to be called before defining any target
+* Merge pull request `#13 <https://github.com/mikeferguson/code_coverage/issues/13>`_ from leunMar/fix/usage_docu
+  Fix example of add_code_coverage() in README.md
+* Fix example of add_code_coverage() in README.md
+* Contributors: Immanuel Martini, Michael Ferguson, Robert Haschke
+
 0.2.4 (2019-07-18)
 ------------------
 * Merge pull request `#11 <https://github.com/mikeferguson/code_coverage/issues/11>`_ from agutenkunst/master

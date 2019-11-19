@@ -34,13 +34,13 @@ endif()
 
   - if using CATKIN_MAKE:
   ```
-      catkin_make -DENABLE_COVERAGE_TESTING=ON -DCMAKE_BUILD_TYPE=Debug package_name_coverage
+      catkin_make -DENABLE_COVERAGE_TESTING=ON -DCMAKE_BUILD_TYPE=Debug PACKAGE_NAME_coverage_report
   ```
   - if using CATKIN_TOOLS:
   ```
     catkin config --cmake-args -DENABLE_COVERAGE_TESTING=ON -DCMAKE_BUILD_TYPE=Debug
     catkin build
-    catkin build PACKAGE_NAME -v --no-deps --catkin-make-args PACKAGE_NAME_coverage 
+    catkin build PACKAGE_NAME -v --no-deps --catkin-make-args PACKAGE_NAME_coverage_report 
   ```
 
 * The output will print where the coverage report is located

@@ -149,7 +149,7 @@ function(ADD_CODE_COVERAGE)
 
         WORKING_DIRECTORY ${PROJECT_BINARY_DIR}
         DEPENDS ${Coverage_NAME}_cleanup
-        DEPENDS _run_tests_${PROJECT_NAME}
+        DEPENDS run_tests_${PROJECT_NAME}
         COMMENT "Processing code coverage counters and generating report."
     )
 

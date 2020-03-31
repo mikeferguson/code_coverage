@@ -126,30 +126,53 @@ function(ADD_CODE_COVERAGE)
         message(FATAL_ERROR "genhtml not found! Aborting...")
     endif() # NOT GENHTML_PATH
 
-    # Setup target
-    add_custom_target(${Coverage_NAME}_cleanup
+    # Cleanup C++ counters
+    add_custom_target(${Coverage_NAME}_cleanup_cpp
         # Cleanup lcov
         COMMAND ${LCOV_PATH} --directory . --zerocounters
         # Create baseline to make sure untouched files show up in the report
         COMMAND ${LCOV_PATH} -c -i -d . -o ${Coverage_NAME}.base
         WORKING_DIRECTORY ${PROJECT_BINARY_DIR}
         DEPENDS ${Coverage_DEPENDENCIES}
-        COMMENT "Resetting code coverage counters to zero."
+        COMMENT "Resetting CPP code coverage counters to zero."
     )
 
-    add_custom_target(${Coverage_NAME}
+    # Cleanup python counters
+    add_custom_target(${Coverage_NAME}_cleanup_py
+        COMMAND python-coverage erase
+        WORKING_DIRECTORY $ENV{HOME}/.ros
+        COMMENT "Resetting PYTHON code coverage counters to zero."
+    )
+
+    # Cleanup before we run tests
+    add_dependencies(_run_tests_${PROJECT_NAME} ${Coverage_NAME}_cleanup_cpp)
+    add_dependencies(_run_tests_${PROJECT_NAME} ${Coverage_NAME}_cleanup_py)
+
+    # Create C++ coverage report
+    add_custom_target(${Coverage_NAME}_cpp
         # Capturing lcov counters and generating report
         COMMAND ${LCOV_PATH} --directory . --capture --output-file ${Coverage_NAME}.info
         # add baseline counters
-        COMMAND ${LCOV_PATH} -a ${Coverage_NAME}.base -a ${Coverage_NAME}.info --output-file ${Coverage_NAME}.total
-        COMMAND ${LCOV_PATH} --remove ${Coverage_NAME}.total ${COVERAGE_EXCLUDES} --output-file ${PROJECT_BINARY_DIR}/${Coverage_NAME}.info.removed
-        COMMAND ${LCOV_PATH} --extract ${PROJECT_BINARY_DIR}/${Coverage_NAME}.info.removed "'*/${PROJECT_NAME}/*'" --output-file ${PROJECT_BINARY_DIR}/${Coverage_NAME}.info.cleaned
-        COMMAND ${GENHTML_PATH} -o ${Coverage_NAME} ${PROJECT_BINARY_DIR}/${Coverage_NAME}.info.cleaned
-        COMMAND ${CMAKE_COMMAND} -E remove ${Coverage_NAME}.base ${Coverage_NAME}.total
-
+        COMMAND ${LCOV_PATH} -a ${Coverage_NAME}.base -a ${Coverage_NAME}.info --output-file ${Coverage_NAME}.total || (exit 0)
+        COMMAND ${LCOV_PATH} --remove ${Coverage_NAME}.total ${COVERAGE_EXCLUDES} --output-file ${PROJECT_BINARY_DIR}/${Coverage_NAME}.info.removed || (exit 0)
+        COMMAND ${LCOV_PATH} --extract ${PROJECT_BINARY_DIR}/${Coverage_NAME}.info.removed "'*/${PROJECT_NAME}/*'" --output-file ${PROJECT_BINARY_DIR}/${Coverage_NAME}.info.cleaned || (exit 0)
+        COMMAND ${GENHTML_PATH} -o ${Coverage_NAME} ${PROJECT_BINARY_DIR}/${Coverage_NAME}.info.cleaned || (exit 0)
+        COMMAND ${CMAKE_COMMAND} -E remove ${Coverage_NAME}.base ${Coverage_NAME}.total || (exit 0)
         WORKING_DIRECTORY ${PROJECT_BINARY_DIR}
-        DEPENDS ${Coverage_NAME}_cleanup
         DEPENDS _run_tests_${PROJECT_NAME}
+    )
+
+    # Create Python coverage report
+    add_custom_target(${Coverage_NAME}_py
+        COMMAND python-coverage combine || echo "WARNING: No python coverage to combine!"
+        COMMAND python-coverage xml || echo "WARNING: No python xml to output"
+        WORKING_DIRECTORY $ENV{HOME}/.ros
+        DEPENDS _run_tests_${PROJECT_NAME}
+    )
+
+    add_custom_target(${Coverage_NAME}
+        DEPENDS ${Coverage_NAME}_cpp
+        DEPENDS ${Coverage_NAME}_py
         COMMENT "Processing code coverage counters and generating report."
     )
 
@@ -170,6 +193,7 @@ endfunction() # SETUP_TARGET_FOR_COVERAGE
 function(APPEND_COVERAGE_COMPILER_FLAGS)
     set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${COVERAGE_COMPILER_FLAGS}" PARENT_SCOPE)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${COVERAGE_COMPILER_FLAGS}" PARENT_SCOPE)
+    set(ENV{CATKIN_TEST_COVERAGE} "1")
     message(STATUS "Appending code coverage compiler flags: ${COVERAGE_COMPILER_FLAGS}")
 endfunction() # APPEND_COVERAGE_COMPILER_FLAGS
 

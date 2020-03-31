@@ -44,3 +44,39 @@ endif()
   ```
 
 * The output will print where the coverage report is located
+
+## Python rostest Support
+
+While the C++ interface and Python-based unit tests require no
+modification to get coverage information, Python-based nodes
+run from rostest launch files need a bit of additional
+instrumentation turned on:
+
+```
+<launch>
+
+    <!-- Add an argument to the launch file to turn on coverage -->
+    <arg name="coverage" default="false"/>
+
+    <!-- This fancy line forces nodes to generate coverage -->
+    <arg name="pythontest_launch_prefix" value="$(eval 'python-coverage run -p' if arg('coverage') else '')"/>
+
+    <!-- This node will NOT generate coverage information -->
+    <node pkg="example_pkg" name="publisher_node" type="publisher_node.py" />
+
+    <!-- But this node WILL generate coverage -->
+    <node pkg="example_pkg" name="subscriber_node" type="subscriber_node.py"
+          launch-prefix="$(arg pythontest_launch_prefix)" />
+
+    <!-- The test can also generate coverage information if you include the launch-prefix -->
+    <test time-limit="10" test-name="sample_rostest" pkg="example_pkg" type="sample_rostest.py"
+          launch-prefix="$(arg pythontest_launch_prefix)" />
+
+</launch>
+```
+
+In the CMakeLists, you will need to pass this argument:
+
+```
+add_rostest(example_rostest.test ARGS coverage:=ENABLE_COVERAGE_TESTING)
+```

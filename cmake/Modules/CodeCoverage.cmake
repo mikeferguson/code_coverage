@@ -126,6 +126,11 @@ function(ADD_CODE_COVERAGE)
         message(FATAL_ERROR "genhtml not found! Aborting...")
     endif() # NOT GENHTML_PATH
 
+    set(COVERAGE_DIR $ENV{HOME}/.ros)
+    if(DEFINED ENV{ROS_HOME})
+        set(COVERAGE_DIR $ENV{ROS_HOME})
+    endif()
+
     # Cleanup C++ counters
     add_custom_target(${Coverage_NAME}_cleanup_cpp
         # Cleanup lcov
@@ -140,7 +145,7 @@ function(ADD_CODE_COVERAGE)
     # Cleanup python counters
     add_custom_target(${Coverage_NAME}_cleanup_py
         COMMAND python-coverage erase
-        WORKING_DIRECTORY $ENV{HOME}/.ros
+        WORKING_DIRECTORY ${COVERAGE_DIR}
         COMMENT "Resetting PYTHON code coverage counters to zero."
     )
 
@@ -164,10 +169,10 @@ function(ADD_CODE_COVERAGE)
 
     # Create Python coverage report
     add_custom_target(${Coverage_NAME}_py
-        COMMAND cp ${PROJECT_BINARY_DIR}/.coverage $ENV{HOME}/.ros || echo "WARNING: No nosetest coverage!"
+        COMMAND cp ${PROJECT_BINARY_DIR}/.coverage ${COVERAGE_DIR} || echo "WARNING: No nosetest coverage!"
         COMMAND python-coverage combine || echo "WARNING: No python coverage to combine!"
         COMMAND python-coverage xml || echo "WARNING: No python xml to output"
-        WORKING_DIRECTORY $ENV{HOME}/.ros
+        WORKING_DIRECTORY ${COVERAGE_DIR}
         DEPENDS _run_tests_${PROJECT_NAME}
     )
 

@@ -126,6 +126,7 @@ function(ADD_CODE_COVERAGE)
         message(FATAL_ERROR "genhtml not found! Aborting...")
     endif() # NOT GENHTML_PATH
 
+    # Determine directory to store python coverage files
     set(COVERAGE_DIR $ENV{HOME}/.ros)
     if(DEFINED ENV{ROS_HOME})
         set(COVERAGE_DIR $ENV{ROS_HOME})
@@ -188,17 +189,25 @@ function(ADD_CODE_COVERAGE)
         COMMENT "Lcov code coverage info report saved in ${PROJECT_BINARY_DIR}/${Coverage_NAME}.info."
     )
 
-    # Show info where to find the report
+    # Show info where to find the C++ report
     add_custom_command(TARGET ${Coverage_NAME} POST_BUILD
         COMMAND ;
         COMMENT "Open ${PROJECT_BINARY_DIR}/${Coverage_NAME}/index.html in your browser to view the coverage report."
     )
 
+    # Show info where to find the Python report
+    add_custom_command(TARGET ${Coverage_NAME} POST_BUILD
+        COMMAND ;
+        COMMENT "Python code coverage info saved in ${COVERAGE_DIR} directory."
+    )
+
 endfunction() # SETUP_TARGET_FOR_COVERAGE
 
 function(APPEND_COVERAGE_COMPILER_FLAGS)
+    # Set flags for all C++ builds
     set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${COVERAGE_COMPILER_FLAGS}" PARENT_SCOPE)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${COVERAGE_COMPILER_FLAGS}" PARENT_SCOPE)
+    # Turn on coverage in python nosetests (see README for requirements on rostests)
     set(ENV{CATKIN_TEST_COVERAGE} "1")
     message(STATUS "Appending code coverage compiler flags: ${COVERAGE_COMPILER_FLAGS}")
 endfunction() # APPEND_COVERAGE_COMPILER_FLAGS

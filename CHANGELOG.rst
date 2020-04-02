@@ -2,6 +2,11 @@
 Changelog for package code_coverage
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* add support for python-based coverage (`#18 <https://github.com/mikeferguson/code_coverage/issues/18>`_)
+* Contributors: Michael Ferguson
+
 0.3.0 (2019-11-18)
 ------------------
 * update target name in readme

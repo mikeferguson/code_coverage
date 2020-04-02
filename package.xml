@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package>
   <name>code_coverage</name>
-  <version>0.3.0</version>
+  <version>0.4.0</version>
   <description>CMake configuration to run coverage</description>
   <author email="mike@vanadiumlabs.com">Michael Ferguson</author>
   <maintainer email="mike@vanadiumlabs.com">Michael Ferguson</maintainer>

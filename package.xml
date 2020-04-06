@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<package>
+<package format="3">
   <name>code_coverage</name>
   <version>0.4.0</version>
   <description>CMake configuration to run coverage</description>
@@ -13,9 +13,8 @@
 
   <buildtool_depend>catkin</buildtool_depend>
 
-  <build_depend>lcov</build_depend>
-  <build_depend>python-coverage</build_depend>
-  <run_depend>lcov</run_depend>
-  <run_depend>python-coverage</run_depend>
+  <depend>lcov</depend>
+  <depend condition="$ROS_PYTHON_VERSION == 2">python-coverage</depend>
+  <depend condition="$ROS_PYTHON_VERSION == 3">python3-coverage</depend>
 
 </package>

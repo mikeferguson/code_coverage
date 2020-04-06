@@ -2,8 +2,8 @@
 Changelog for package code_coverage
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.4.1 (2020-04-05)
+------------------
 * update package.xml for noetic
 * Contributors: Michael Ferguson
 

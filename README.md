@@ -34,6 +34,7 @@ endif()
 
   - if using CATKIN_MAKE:
   ```
+      catkin_make -DENABLE_COVERAGE_TESTING=ON -DCMAKE_BUILD_TYPE=Debug
       catkin_make -DENABLE_COVERAGE_TESTING=ON -DCMAKE_BUILD_TYPE=Debug PACKAGE_NAME_coverage_report
   ```
   - if using CATKIN_TOOLS:

@@ -162,7 +162,7 @@ function(ADD_CODE_COVERAGE)
         COMMAND ${LCOV_PATH} -a ${Coverage_NAME}.base -a ${Coverage_NAME}.info --output-file ${Coverage_NAME}.total || (exit 0)
         COMMAND ${LCOV_PATH} --remove ${Coverage_NAME}.total ${COVERAGE_EXCLUDES} --output-file ${PROJECT_BINARY_DIR}/${Coverage_NAME}.info.removed || (exit 0)
         COMMAND ${LCOV_PATH} --extract ${PROJECT_BINARY_DIR}/${Coverage_NAME}.info.removed "'*/${PROJECT_NAME}/*'" --output-file ${PROJECT_BINARY_DIR}/${Coverage_NAME}.info.cleaned || (exit 0)
-        COMMAND ${GENHTML_PATH} -o ${Coverage_NAME} ${PROJECT_BINARY_DIR}/${Coverage_NAME}.info.cleaned || (exit 0)
+        COMMAND ${GENHTML_PATH} ${GENHTML_EXTRA_FLAGS} -o ${Coverage_NAME} ${PROJECT_BINARY_DIR}/${Coverage_NAME}.info.cleaned || (exit 0)
         COMMAND ${CMAKE_COMMAND} -E remove ${Coverage_NAME}.base ${Coverage_NAME}.total || (exit 0)
         WORKING_DIRECTORY ${PROJECT_BINARY_DIR}
         DEPENDS _run_tests_${PROJECT_NAME}

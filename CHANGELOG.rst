@@ -2,6 +2,15 @@
 Changelog for package code_coverage
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Add option for specifying extra flags to genhtml (`#20 <https://github.com/mikeferguson/code_coverage/issues/20>`_)
+  This modification allows you to add flags to the genhtml step so that you can do things like output the lcov report with demangled C++ function names, e.g.:
+  catkin_make -DGENHTML_EXTRA_FLAGS="--demangle-cpp" -DENABLE_COVERAGE_TESTING=ON -DCMAKE_BUILD_TYPE=Debug test1_coverage_report
+* Add catkin_make build step in usage example (`#19 <https://github.com/mikeferguson/code_coverage/issues/19>`_)
+* bump cmake version for noetic
+* Contributors: Immanuel Martini, Michael Ferguson, mschickler
+
 0.4.1 (2020-04-05)
 ------------------
 * update package.xml for noetic

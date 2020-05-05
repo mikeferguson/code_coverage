@@ -2,8 +2,8 @@
 Changelog for package code_coverage
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.4.2 (2020-05-05)
+------------------
 * Add option for specifying extra flags to genhtml (`#20 <https://github.com/mikeferguson/code_coverage/issues/20>`_)
   This modification allows you to add flags to the genhtml step so that you can do things like output the lcov report with demangled C++ function names, e.g.:
   catkin_make -DGENHTML_EXTRA_FLAGS="--demangle-cpp" -DENABLE_COVERAGE_TESTING=ON -DCMAKE_BUILD_TYPE=Debug test1_coverage_report

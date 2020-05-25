@@ -170,9 +170,10 @@ function(ADD_CODE_COVERAGE)
 
     # Create Python coverage report
     add_custom_target(${Coverage_NAME}_py
-        COMMAND cp ${PROJECT_BINARY_DIR}/.coverage ${COVERAGE_DIR}/.coverage.nosetests || echo "WARNING: No nosetest coverage!"
+        COMMAND cp ${PROJECT_BINARY_DIR}/.coverage ${COVERAGE_DIR}/.coverage.python || echo "WARNING: No python coverage!"
         COMMAND python-coverage combine || echo "WARNING: No python coverage to combine!"
-        COMMAND python-coverage html || echo "WARNING: No python html to output"
+        COMMAND python-coverage report --include "*${PROJECT_SOURCE_DIR}*" --omit ${COVERAGE_EXCLUDES}
+        COMMAND python-coverage html --include "*${PROJECT_SOURCE_DIR}*"  --omit ${COVERAGE_EXCLUDES} || echo "WARNING: No python html to output"
         WORKING_DIRECTORY ${COVERAGE_DIR}
         DEPENDS _run_tests_${PROJECT_NAME}
     )

@@ -172,7 +172,7 @@ function(ADD_CODE_COVERAGE)
     add_custom_target(${Coverage_NAME}_py
         COMMAND cp ${PROJECT_BINARY_DIR}/.coverage ${COVERAGE_DIR}/.coverage.nosetests || echo "WARNING: No nosetest coverage!"
         COMMAND python-coverage combine || echo "WARNING: No python coverage to combine!"
-        COMMAND python-coverage xml || echo "WARNING: No python xml to output"
+        COMMAND python-coverage html || echo "WARNING: No python html to output"
         WORKING_DIRECTORY ${COVERAGE_DIR}
         DEPENDS _run_tests_${PROJECT_NAME}
     )
@@ -198,7 +198,7 @@ function(ADD_CODE_COVERAGE)
     # Show info where to find the Python report
     add_custom_command(TARGET ${Coverage_NAME} POST_BUILD
         COMMAND ;
-        COMMENT "Python code coverage info saved in ${COVERAGE_DIR} directory."
+        COMMENT "Python code coverage info saved in ${COVERAGE_DIR}/htmlcov/index.html directory."
     )
 
 endfunction() # SETUP_TARGET_FOR_COVERAGE

@@ -172,7 +172,7 @@ function(ADD_CODE_COVERAGE)
     add_custom_target(${Coverage_NAME}_py
         COMMAND cp ${PROJECT_BINARY_DIR}/.coverage ${COVERAGE_DIR}/.coverage.nosetests || echo "WARNING: No nosetest coverage!"
         COMMAND python-coverage combine || echo "WARNING: No python coverage to combine!"
-        COMMAND python-coverage report --include "*${PROJECT_SOURCE_DIR}*" --omit ${COVERAGE_EXCLUDES}
+        COMMAND python-coverage report --include "*${PROJECT_SOURCE_DIR}*" --omit ${COVERAGE_EXCLUDES} || echo "WARNING: no python report to output"
         COMMAND python-coverage xml    --include "*${PROJECT_SOURCE_DIR}*" --omit ${COVERAGE_EXCLUDES} || echo "WARNING: No python xml to output"
         COMMAND python-coverage html   --include "*${PROJECT_SOURCE_DIR}*" --omit ${COVERAGE_EXCLUDES} || echo "WARNING: No python html to output"
         WORKING_DIRECTORY ${COVERAGE_DIR}

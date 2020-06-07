@@ -2,6 +2,10 @@
 
 ROS package to run coverage testing
 
+## Examples
+
+ * The [robot_calibration](https://github.com/mikeferguson/robot_calibration) package uses this to generate coverage for C++ code using Travis-CI and Codecov.io
+
 ## Usage
 To use this with your ROS package:
 

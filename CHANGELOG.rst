@@ -2,8 +2,8 @@
 Changelog for package code_coverage
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.4.3 (2020-07-30)
+------------------
 * Use multiple python coverage files (`#23 <https://github.com/mikeferguson/code_coverage/issues/23>`_)
   Co-authored-by: hslusarek <h.slusarek@pilz.de>
 * add note that robot_calibration uses this package

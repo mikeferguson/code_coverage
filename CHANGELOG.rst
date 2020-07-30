@@ -2,6 +2,18 @@
 Changelog for package code_coverage
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Use multiple python coverage files (`#23 <https://github.com/mikeferguson/code_coverage/issues/23>`_)
+  Co-authored-by: hslusarek <h.slusarek@pilz.de>
+* add note that robot_calibration uses this package
+* fix `#25 <https://github.com/mikeferguson/code_coverage/issues/25>`_
+* Add new report formats (`#24 <https://github.com/mikeferguson/code_coverage/issues/24>`_)
+  * Add html report format
+  * Add console report format
+  * Add '--include'  and '--omit' flag to python-coverage commands
+* Contributors: Alexander Gutenkunst, Michael Ferguson, hslusarek
+
 0.4.2 (2020-05-05)
 ------------------
 * Add option for specifying extra flags to genhtml (`#20 <https://github.com/mikeferguson/code_coverage/issues/20>`_)

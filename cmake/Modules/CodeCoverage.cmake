@@ -57,10 +57,10 @@ find_program( LCOV_PATH  NAMES lcov lcov.bat lcov.exe lcov.perl)
 find_program( GENHTML_PATH NAMES genhtml genhtml.perl genhtml.bat )
 find_program( GCOVR_PATH gcovr PATHS ${CMAKE_SOURCE_DIR}/scripts/test)
 find_program( SIMPLE_PYTHON_EXECUTABLE python )
-find_program( PYTHON_COVERAGE_PATH python3-coverage )
+find_program( PYTHON_COVERAGE_PATH python-coverage )
 
 if (NOT PYTHON_COVERAGE_PATH)
-  find_program( PYTHON_COVERAGE_PATH python-coverage )
+    find_program( PYTHON_COVERAGE_PATH python3-coverage )
 endif()
 
 if(NOT GCOV_PATH)

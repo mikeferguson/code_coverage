@@ -2,6 +2,11 @@
 Changelog for package code_coverage
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Added python3-coverage support and error if python*-coverage is missing. (`#27 <https://github.com/mikeferguson/code_coverage/issues/27>`_)
+* Contributors: Stefan Fabian
+
 0.4.3 (2020-07-30)
 ------------------
 * Use multiple python coverage files (`#23 <https://github.com/mikeferguson/code_coverage/issues/23>`_)

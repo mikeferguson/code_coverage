@@ -168,6 +168,7 @@ function(ADD_CODE_COVERAGE)
 
     # Create C++ coverage report
     add_custom_target(${Coverage_NAME}_cpp
+        COMMAND export PYTHONIOENCODING=UTF-8
         # Capturing lcov counters and generating report
         COMMAND ${LCOV_PATH} --directory . --capture --output-file ${Coverage_NAME}.info
         # add baseline counters

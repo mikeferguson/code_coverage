@@ -10,7 +10,7 @@ ROS package to run coverage testing
 To use this with your ROS package:
 
  * Add code_coverage as a test depend in your package.xml
- * Update your CMakeLists.txt, in the testing section add:
+ * Update your CMakeLists.txt, in the testing section add the following. **NOTE** the order of test targets and coverage macros:
    ```
    if(CATKIN_ENABLE_TESTING AND ENABLE_COVERAGE_TESTING)
      find_package(code_coverage REQUIRED)

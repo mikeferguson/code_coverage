@@ -34,6 +34,13 @@ To use this with your ROS package:
    endif()
    ```
 
+   If you want to use Clang coverage tools:
+
+   ```
+     APPEND_COVERAGE_COMPILER_FLAGS(COMPILER clang)
+   ```
+
+
 * Now you can build and run the tests (you need a debug build to get reasonable coverage numbers):
 
   - if using CATKIN_MAKE:

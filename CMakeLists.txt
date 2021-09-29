@@ -5,6 +5,10 @@ find_package(catkin REQUIRED)
 
 catkin_package(CFG_EXTRAS code_coverage-extras.cmake)
 
+## Install Clang coverage tool wrapper
+install(PROGRAMS scripts/llvm-gcov.sh
+  DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}/scripts)
+
 ## Install all cmake files
 install(DIRECTORY cmake/Modules
   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/cmake)

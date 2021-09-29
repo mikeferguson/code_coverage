@@ -2,6 +2,11 @@
 Changelog for package code_coverage
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.4.5 (2021-09-29)
+------------------
+* Added option to use Clang coverage tools. (`#30 <https://github.com/mikeferguson/code_coverage/issues/30>`_)
+* Contributors: Erki Suurjaak
+
 0.4.4 (2020-10-29)
 ------------------
 * Added python3-coverage support and error if python*-coverage is missing. (`#27 <https://github.com/mikeferguson/code_coverage/issues/27>`_)

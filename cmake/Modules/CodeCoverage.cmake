@@ -48,6 +48,9 @@
 # 2020-10-28, Stefan Fabian
 # - Added python3-coverage support
 #
+# 2021-09-29, Erki Suurjaak
+# - Added option to use Clang coverage tools
+#
 
 include(CMakeParseArguments)
 
@@ -104,6 +107,9 @@ mark_as_advanced(
     CMAKE_EXE_LINKER_FLAGS_COVERAGE
     CMAKE_SHARED_LINKER_FLAGS_COVERAGE )
 
+set(GCOV_TOOL "${CMAKE_CURRENT_LIST_DIR}/../../../../lib/code_coverage/llvm-gcov.sh")
+set(GCOV_TOOL_OVERRIDE OFF)
+
 if(NOT CMAKE_BUILD_TYPE STREQUAL "Debug")
     message(WARNING "Code coverage results with an optimised (non-Debug) build may be misleading")
 endif() # NOT CMAKE_BUILD_TYPE STREQUAL "Debug"
@@ -145,11 +151,15 @@ function(ADD_CODE_COVERAGE)
     endif()
 
     # Cleanup C++ counters
+    set(LCOV_BASELINE_OPTIONS_LIST -c -i -d . -o ${PROJECT_BINARY_DIR}/${Coverage_NAME}.base)
+    if(GCOV_TOOL_OVERRIDE)
+        list(APPEND LCOV_BASELINE_OPTIONS_LIST --gcov-tool ${GCOV_TOOL})
+    endif()
     add_custom_target(${Coverage_NAME}_cleanup_cpp
         # Cleanup lcov
         COMMAND ${LCOV_PATH} --directory . --zerocounters
         # Create baseline to make sure untouched files show up in the report
-        COMMAND ${LCOV_PATH} -c -i -d . -o ${PROJECT_BINARY_DIR}/${Coverage_NAME}.base
+        COMMAND ${LCOV_PATH} ${LCOV_BASELINE_OPTIONS_LIST}
         WORKING_DIRECTORY ${PROJECT_BINARY_DIR}
         DEPENDS ${Coverage_DEPENDENCIES}
         COMMENT "Resetting CPP code coverage counters to zero."
@@ -167,10 +177,14 @@ function(ADD_CODE_COVERAGE)
     add_dependencies(_run_tests_${PROJECT_NAME} ${Coverage_NAME}_cleanup_py)
 
     # Create C++ coverage report
+    set(LCOV_CAPTURE_OPTIONS_LIST --directory . --capture --output-file ${PROJECT_BINARY_DIR}/${Coverage_NAME}.info)
+    if(GCOV_TOOL_OVERRIDE)
+        list(APPEND LCOV_CAPTURE_OPTIONS_LIST --gcov-tool ${GCOV_TOOL})
+    endif()
     add_custom_target(${Coverage_NAME}_cpp
         COMMAND export PYTHONIOENCODING=UTF-8
         # Capturing lcov counters and generating report
-        COMMAND ${LCOV_PATH} --directory . --capture --output-file ${PROJECT_BINARY_DIR}/${Coverage_NAME}.info
+        COMMAND ${LCOV_PATH} ${LCOV_CAPTURE_OPTIONS_LIST}
         # add baseline counters
         COMMAND ${LCOV_PATH} -a ${PROJECT_BINARY_DIR}/${Coverage_NAME}.base -a ${PROJECT_BINARY_DIR}/${Coverage_NAME}.info --output-file ${PROJECT_BINARY_DIR}/${Coverage_NAME}.total || (exit 0)
         COMMAND ${LCOV_PATH} --remove ${PROJECT_BINARY_DIR}/${Coverage_NAME}.total ${COVERAGE_EXCLUDES} --output-file ${PROJECT_BINARY_DIR}/${Coverage_NAME}.info.removed || (exit 0)
@@ -221,12 +235,29 @@ function(ADD_CODE_COVERAGE)
 
 endfunction() # SETUP_TARGET_FOR_COVERAGE
 
+# Adds compiler flags for coverage instrumentation.
+#
+# Takes one optional named argument, COMPILER:
+#
+# APPEND_COVERAGE_COMPILER_FLAGS()                # Use GCC coverage tools
+# APPEND_COVERAGE_COMPILER_FLAGS(COMPILER clang)  # Use Clang coverage tools
 function(APPEND_COVERAGE_COMPILER_FLAGS)
     # Set flags for all C++ builds
     set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${COVERAGE_COMPILER_FLAGS}" PARENT_SCOPE)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${COVERAGE_COMPILER_FLAGS}" PARENT_SCOPE)
     # Turn on coverage in python nosetests (see README for requirements on rostests)
     set(ENV{CATKIN_TEST_COVERAGE} "1")
+
+    # Set flag for using Clang tools if COMPILER is "clang"
+    set(oneValueArgs COMPILER)
+    cmake_parse_arguments(Flags "" "${oneValueArgs}" "" ${ARGN})
+    if(DEFINED Flags_COMPILER)
+        string(TOLOWER "${Flags_COMPILER}" COMPILER)
+        if(COMPILER STREQUAL "clang")
+            set(GCOV_TOOL_OVERRIDE ON PARENT_SCOPE)
+        endif()
+    endif()
+
     message(STATUS "Appending code coverage compiler flags: ${COVERAGE_COMPILER_FLAGS}")
 endfunction() # APPEND_COVERAGE_COMPILER_FLAGS
 

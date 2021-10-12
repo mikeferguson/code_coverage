@@ -139,10 +139,7 @@ function(ADD_CODE_COVERAGE)
     endif() # NOT GENHTML_PATH
 
     # Determine directory to store python coverage files
-    set(COVERAGE_DIR $ENV{HOME}/.ros)
-    if(DEFINED ENV{ROS_HOME})
-        set(COVERAGE_DIR $ENV{ROS_HOME})
-    endif()
+    set(COVERAGE_DIR ${PROJECT_BINARY_DIR})
 
     # Cleanup C++ counters
     add_custom_target(${Coverage_NAME}_cleanup_cpp

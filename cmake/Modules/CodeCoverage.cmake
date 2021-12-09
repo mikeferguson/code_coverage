@@ -148,8 +148,6 @@ function(ADD_CODE_COVERAGE)
     add_custom_target(${Coverage_NAME}_cleanup_cpp
         # Cleanup lcov
         COMMAND ${LCOV_PATH} --directory . --zerocounters
-        # Create baseline to make sure untouched files show up in the report
-        COMMAND ${LCOV_PATH} -c -i -d . -o ${PROJECT_BINARY_DIR}/${Coverage_NAME}.base
         WORKING_DIRECTORY ${PROJECT_BINARY_DIR}
         DEPENDS ${Coverage_DEPENDENCIES}
         COMMENT "Resetting CPP code coverage counters to zero."
@@ -162,13 +160,15 @@ function(ADD_CODE_COVERAGE)
         COMMENT "Resetting PYTHON code coverage counters to zero."
     )
 
-    # Cleanup before we run tests
-    add_dependencies(_run_tests_${PROJECT_NAME} ${Coverage_NAME}_cleanup_cpp)
-    add_dependencies(_run_tests_${PROJECT_NAME} ${Coverage_NAME}_cleanup_py)
+    # Cleanup before we run tests (attach to the tests target, which is completed before any test is run)
+    add_dependencies(tests ${Coverage_NAME}_cleanup_cpp)
+    add_dependencies(tests ${Coverage_NAME}_cleanup_py)
 
     # Create C++ coverage report
     add_custom_target(${Coverage_NAME}_cpp
         COMMAND export PYTHONIOENCODING=UTF-8
+        # Create baseline to make sure untouched files show up in the report
+        COMMAND ${LCOV_PATH} -c -i -d . -o ${PROJECT_BINARY_DIR}/${Coverage_NAME}.base
         # Capturing lcov counters and generating report
         COMMAND ${LCOV_PATH} --directory . --capture --output-file ${PROJECT_BINARY_DIR}/${Coverage_NAME}.info
         # add baseline counters

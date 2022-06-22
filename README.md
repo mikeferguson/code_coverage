@@ -11,7 +11,7 @@ To use this with your ROS package:
 
  * Add code_coverage as a test depend in your package.xml
  * Update your CMakeLists.txt, in the testing section add the following. **NOTE** the order of test targets and coverage macros:
-   ```
+   ```cmake
    if(CATKIN_ENABLE_TESTING AND ENABLE_COVERAGE_TESTING)
      find_package(code_coverage REQUIRED)
      # Add compiler flags for coverage instrumentation before defining any targets
@@ -33,7 +33,7 @@ To use this with your ROS package:
      endif()
    endif()
    ```
-
+* **Note**: The variable `COVERAGE_EXCLUDES` must have some content!
 * Now you can build and run the tests (you need a debug build to get reasonable coverage numbers):
 
   - if using CATKIN_MAKE:
@@ -57,7 +57,7 @@ modification to get coverage information, Python-based nodes
 run from rostest launch files need a bit of additional
 instrumentation turned on:
 
-```
+```xml
 <launch>
 
     <!-- Add an argument to the launch file to turn on coverage -->
@@ -82,6 +82,6 @@ instrumentation turned on:
 
 In the CMakeLists, you will need to pass this argument:
 
-```
+```cmake
 add_rostest(example_rostest.test ARGS coverage:=ENABLE_COVERAGE_TESTING)
 ```

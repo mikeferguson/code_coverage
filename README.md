@@ -28,7 +28,7 @@ To use this with your ROS package:
        set(COVERAGE_EXCLUDES "*/${PROJECT_NAME}/test*" "*/${PROJECT_NAME}/other_dir_i_dont_care_about*")
        add_code_coverage(
          NAME ${PROJECT_NAME}_coverage_report
-         DEPENDENCIES tests
+         DEPENDENCIES _run_tests_${PROJECT_NAME}
        )
      endif()
    endif()
